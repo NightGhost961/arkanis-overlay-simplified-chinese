@@ -1,0 +1,13 @@
+# From: https://github.com/gitattributes/gitattributes/blob/03aca027af850df191e161381f9d8620d835e3ca/CSharp.gitattributes
+# See : https://github.com/gitattributes/gitattributes
+
+# Auto detect text files and perform LF normalization
+*          text=auto
+
+*.cs       text diff=csharp eol=lf
+*.cshtml   text diff=html
+*.csx      text diff=csharp
+*.sln      text eol=crlf
+*.csproj   text eol=crlf
+
+*.sh       text eol=lf

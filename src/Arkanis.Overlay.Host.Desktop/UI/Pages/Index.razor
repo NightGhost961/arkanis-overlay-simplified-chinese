@@ -1,0 +1,18 @@
+@page "/"
+@inject NavigationManager NavigationManager
+
+<MudStack Class="w-100 h-100"
+          AlignItems="@AlignItems.Center"
+          Justify="@Justify.Center">
+    <MudProgressLinear
+        Indeterminate/>
+</MudStack>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        NavigationManager.NavigateTo(PageUrls.Overlay);
+    }
+}

@@ -1,0 +1,186 @@
+{
+  "Result": {
+    "data": [
+      {
+        "category": "Full Set",
+        "company_name": "Clark Defense Systems",
+        "date_added": 1758765631,
+        "date_modified": 0,
+        "id": 4982,
+        "id_category": 7,
+        "id_company": 53,
+        "id_parent": 0,
+        "id_vehicle": 0,
+        "is_exclusive_concierge": 0,
+        "is_exclusive_pledge": 0,
+        "is_exclusive_subscriber": 0,
+        "name": "Corbel Patina Set",
+        "notification": null,
+        "screenshot": "",
+        "section": "Armor",
+        "size": "",
+        "slug": "corbel-patina-set-bqjz",
+        "url_store": "",
+        "uuid": "",
+        "vehicle_name": null,
+        "is_commodity": 0,
+        "is_harvestable": 1,
+        "game_version": "4.3.1"
+      },
+      {
+        "category": "Full Set",
+        "company_name": "Clark Defense Systems",
+        "date_added": 1758765632,
+        "date_modified": 0,
+        "id": 4987,
+        "id_category": 7,
+        "id_company": 53,
+        "id_parent": 0,
+        "id_vehicle": 0,
+        "is_exclusive_concierge": 0,
+        "is_exclusive_pledge": 0,
+        "is_exclusive_subscriber": 0,
+        "name": "Corbel Halcyon",
+        "notification": null,
+        "screenshot": "",
+        "section": "Armor",
+        "size": "",
+        "slug": "corbel-halcyon-8xrq",
+        "url_store": "",
+        "uuid": "",
+        "vehicle_name": null,
+        "is_commodity": 0,
+        "is_harvestable": 1,
+        "game_version": "4.3.1"
+      },
+      {
+        "category": "Full Set",
+        "company_name": "Clark Defense Systems",
+        "date_added": 1758765633,
+        "date_modified": 0,
+        "id": 4991,
+        "id_category": 7,
+        "id_company": 53,
+        "id_parent": 0,
+        "id_vehicle": 0,
+        "is_exclusive_concierge": 0,
+        "is_exclusive_pledge": 0,
+        "is_exclusive_subscriber": 0,
+        "name": "Corbel Smolder",
+        "notification": null,
+        "screenshot": "",
+        "section": "Armor",
+        "size": "",
+        "slug": "corbel-smolder-cjqo",
+        "url_store": "",
+        "uuid": "",
+        "vehicle_name": null,
+        "is_commodity": 0,
+        "is_harvestable": 0,
+        "game_version": "4.3.1"
+      },
+      {
+        "category": "Full Set",
+        "company_name": "Clark Defense Systems",
+        "date_added": 1758765633,
+        "date_modified": 0,
+        "id": 4992,
+        "id_category": 7,
+        "id_company": 53,
+        "id_parent": 0,
+        "id_vehicle": 0,
+        "is_exclusive_concierge": 0,
+        "is_exclusive_pledge": 0,
+        "is_exclusive_subscriber": 0,
+        "name": "Corbel Mire",
+        "notification": null,
+        "screenshot": "",
+        "section": "Armor",
+        "size": "",
+        "slug": "corbel-mire-lx4o",
+        "url_store": "",
+        "uuid": "",
+        "vehicle_name": null,
+        "is_commodity": 0,
+        "is_harvestable": 0,
+        "game_version": "4.3.1"
+      }
+    ],
+    "http_code": 200,
+    "message": "",
+    "status": "ok"
+  },
+  "StatusCode": 200,
+  "Headers": {
+    "Date": [
+      "Fri, 10 Oct 2025 04:47:18 GMT"
+    ],
+    "Transfer-Encoding": [
+      "chunked"
+    ],
+    "Connection": [
+      "keep-alive"
+    ],
+    "Access-Control-Allow-Origin": [
+      "*"
+    ],
+    "Age": [
+      "2008"
+    ],
+    "Alt-Svc": [
+      "h3=\u0022:443\u0022"
+    ],
+    "Cache-Control": [
+      "public, must-revalidate, max-age=86400"
+    ],
+    "cache-status": [
+      "ArkanisProxy; hit; ttl=84392; key=*****; detail=DEFAULT"
+    ],
+    "cf-cache-status": [
+      "DYNAMIC"
+    ],
+    "Content-Security-Policy": [
+      "frame-ancestors \u0027self\u0027"
+    ],
+    "nel": [
+      "{\u0022report_to\u0022:\u0022cf-nel\u0022,\u0022success_fraction\u0022:0.0,\u0022max_age\u0022:604800}"
+    ],
+    "permissions-policy": [
+      "interest-cohort=()"
+    ],
+    "Referrer-Policy": [
+      "strict-origin-when-cross-origin"
+    ],
+    "report-to": [
+      "{\u0022group\u0022:\u0022cf-nel\u0022,\u0022max_age\u0022:604800,\u0022endpoints\u0022:[{\u0022url\u0022:\u0022https://a.nel.cloudflare.com/report/v4?s=z0%2B4k686RT5dpwANwg5d7veMKh4b22MpJMyB0c7ebQG38FZMof4yYYfTjK7wmhCUPaxG3NXeRIXMoG5Br4WWWfBlt8MD3pEOWHak8w%3D%3D\u0022}]}"
+    ],
+    "Server": [
+      "cloudflare"
+    ],
+    "Vary": [
+      "Origin",
+      "Accept-Encoding"
+    ],
+    "Via": [
+      "2.0 Caddy"
+    ],
+    "X-Content-Type-Options": [
+      "nosniff"
+    ],
+    "X-Frame-Options": [
+      "SAMEORIGIN"
+    ],
+    "x-selected-user-id": [
+      "9591"
+    ],
+    "CF-RAY": [
+      "98c37a9aa9aff976-PRG"
+    ],
+    "Content-Type": [
+      "application/json"
+    ],
+    "Expires": [
+      "Sat, 11 Oct 2025 04:13:51 GMT"
+    ]
+  }
+}

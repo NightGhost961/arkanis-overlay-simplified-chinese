@@ -1,0 +1,76 @@
+name: 🐛 Bug Report
+description: Report a problem or unexpected behaviour
+title: "fix: "
+type: Bug
+labels: ["needs triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please take a moment to fill this out so we can fix it faster.
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of Arkanis Overlay are you using?
+      placeholder: e.g. v0.1.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is and what you expected to happen.
+      placeholder: "When I press [key], the overlay crashes..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Help us reproduce the issue.
+      placeholder: |
+        1. Open the overlay
+        2. Search for "cargo"
+        3. Click on a result
+        4. See error
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Include any screenshots if available.
+      placeholder: You can drag and drop images here.
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs, or Error Messages
+      description: Paste any logs or visible error messages if available.
+      placeholder: You can copy-paste logs here.
+      render: text
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: What OS are you running?
+      options:
+        - Windows 11
+        - Windows 10
+        - Other (specify in Additional Context)
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Anything else we should know?

@@ -1,0 +1,20 @@
+<MudStack Spacing="0"
+          AlignItems="@AlignItems.Center"
+          Justify="@Justify.Center">
+    <b>@Model.Name</b>
+    <MudText Typo="@Typo.h6"
+             Style="line-height: 22px;">
+        @Value
+    </MudText>
+</MudStack>
+
+@code
+{
+
+    [Parameter]
+    public required GameItemTrait Model { get; set; }
+
+    [Parameter]
+    public required string Value { get; set; }
+
+}

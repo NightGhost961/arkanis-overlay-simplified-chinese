@@ -1,0 +1,50 @@
+<MudStack Style="@PriceTagCss"
+          Spacing="0"
+          Justify="@Justify.Center"
+          AlignItems="@AlignItems.Center">
+    @if (Label is not null)
+    {
+        <b>@Label</b>
+    }
+    @if (Model is KnownPriceTag knownPriceTag)
+    {
+        <GameCurrencyLabel Model="@knownPriceTag.Price"/>
+        if (Model is KnownPriceTagWithLocation priceTagWithLocation)
+        {
+            <GameLocationLabel Model="@priceTagWithLocation.Location"/>
+        }
+    }
+    else if (Model is MissingPriceTag missingPriceTag)
+    {
+        <span class="text-secondary">Missing</span>
+        <GameLocationLabel Model="@missingPriceTag.Location"/>
+    }
+    else if (Model is UnknownPriceTag)
+    {
+        <i class="text-secondary">Unknown</i>
+    }
+    else
+    {
+        <MudSkeleton SkeletonType="@SkeletonType.Text" Width="4em"/>
+    }
+</MudStack>
+
+@code
+{
+
+    private string PriceTagCss
+        => Color is not null
+            ? $"color: {Color}"
+            : string.Empty;
+
+    [Parameter]
+    [EditorRequired]
+    public PriceTag? Model { get; set; }
+
+    [Parameter]
+    public string? Label { get; set; }
+
+    [Parameter]
+    public string? Color { get; set; } = "lightskyblue";
+
+}

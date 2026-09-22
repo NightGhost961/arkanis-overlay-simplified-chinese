@@ -1,0 +1,35 @@
+<div @onkeyup="@ProcessKeyUp"
+     @onkeyup:stopPropagation="@StopPropagation"
+     @onkeyup:preventDefault="@PreventDefault"
+     @onkeydown="@ProcessKeyDown"
+     @onkeydown:stopPropagation="@StopPropagation"
+     @onkeydown:preventDefault="@PreventDefault">
+    @ChildContent
+</div>
+
+@code
+{
+
+    [Parameter]
+    [EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<KeyboardEventArgs> OnKeyUp { get; set; }
+
+    [Parameter]
+    public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }
+
+    [Parameter]
+    public bool StopPropagation { get; set; }
+
+    [Parameter]
+    public bool PreventDefault { get; set; }
+
+    private async Task ProcessKeyUp(KeyboardEventArgs eventArgs)
+        => await OnKeyUp.InvokeAsync(eventArgs);
+
+    private async Task ProcessKeyDown(KeyboardEventArgs eventArgs)
+        => await OnKeyDown.InvokeAsync(eventArgs);
+
+}

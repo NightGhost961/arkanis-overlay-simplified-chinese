@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arkanis.Overlay.Components\Arkanis.Overlay.Components.csproj"/>
+        <ProjectReference Include="..\Arkanis.Overlay.Infrastructure\Arkanis.Overlay.Infrastructure.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="..\..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Octokit"/>
+    </ItemGroup>
+
+</Project>

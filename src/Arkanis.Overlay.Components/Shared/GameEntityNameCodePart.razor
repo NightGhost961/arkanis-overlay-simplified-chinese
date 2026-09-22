@@ -1,0 +1,61 @@
+<MudText HtmlTag="code"
+         Typo="@Typo"
+         Color="@Color.Secondary"
+         Style="@CodeStyle">
+    @if (PrefixContent is not null)
+    {
+        <span>@PrefixContent</span>
+    }
+    <Tooltip>
+        <TooltipContent>
+            @if (TooltipContent is not null)
+            {
+                @TooltipContent
+            }
+            else
+            {
+                @DefaultTooltipText
+            }
+        </TooltipContent>
+        <ChildContent>
+            <span>@Model.Code</span>
+        </ChildContent>
+    </Tooltip>
+</MudText>
+
+@code
+{
+
+    private string CodeStyle
+        => $"font-family: monospace; {NameStyle}; {Style}";
+
+    private string NameStyle
+        => !Embedded
+            ? "font-weight: bold"
+            : "font-weight: lighter";
+
+    [Parameter]
+    [EditorRequired]
+    public required GameEntityName.IHasCode Model { get; set; }
+
+    [Parameter]
+    public bool Embedded { get; set; }
+
+    [Parameter]
+    public Typo Typo { get; set; } = Typo.body1;
+
+    [Parameter]
+    public string? Style { get; set; }
+
+    [Parameter]
+    public RenderFragment? PrefixContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? TooltipContent { get; set; }
+
+    public string DefaultTooltipText
+        => Model is GameEntityName.Name name
+            ? name.FullName
+            : Model.Code;
+
+}

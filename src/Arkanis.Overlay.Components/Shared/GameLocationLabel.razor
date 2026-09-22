@@ -1,0 +1,66 @@
+@using Arkanis.Overlay.Common.Extensions
+@using Arkanis.Overlay.Domain.Abstractions.Game
+@if (Model.Name.MainContent is GameEntityName.IHasCode codeName)
+{
+    <GameEntityNameCodePart Model="@codeName"
+                            Style="font-size: 12px">
+        <PrefixContent>
+            @if (!NoPrefix)
+            {
+                <span class="text-secondary mr-1" style="font-weight: lighter">
+                    @SelectLocationPrefix(Model)
+                </span>
+            }
+        </PrefixContent>
+        <TooltipContent>
+            <GameLocationNamePart Model="@Model.Name.Location"
+                                  Style="height: 24px; margin-top: -8px">
+                <SuffixContent>
+                    @GameLocationNamePart.Separator
+                    <GameEntityNamePart
+                        Model="@Model.Name.MainContent"
+                        Typo="@Typo.inherit"
+                        Embedded/>
+                </SuffixContent>
+            </GameLocationNamePart>
+        </TooltipContent>
+    </GameEntityNameCodePart>
+}
+else
+{
+    <span>
+        @if (!NoPrefix)
+        {
+            <span class="text-secondary mr-1" style="font-weight: lighter">
+                @SelectLocationPrefix(Model)
+            </span>
+        }
+        <MudTooltip Text="@DisplayName" Placement="@Placement.Top">
+            <abbr class="text-primary" title>
+                @DisplayName.Abbreviate()
+            </abbr>
+        </MudTooltip>
+    </span>
+}
+
+@code
+{
+
+    private string DisplayName
+        => CommunityTranslationIndex.Display(Model.Name.MainContent.FullName);
+
+    [Parameter]
+    [EditorRequired]
+    public required IGameLocation Model { get; set; }
+
+    [Parameter]
+    public bool NoPrefix { get; set; }
+
+    private string SelectLocationPrefix(IGameLocation location)
+        => location switch
+        {
+            GameTerminal => "@",
+            _ => "within",
+        };
+
+}

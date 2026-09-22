@@ -1,0 +1,126 @@
+@using Arkanis.Overlay.Common.Models.Keyboard
+@using Arkanis.Overlay.Components.Extensions
+@inject ILogger<KeyboardShortcutInput> Logger
+
+<div @onkeydown:preventDefault="true"
+     @onkeydown:stopPropagation="true"
+     @onkeyup:preventDefault="true"
+     @onkeyup:stopPropagation="true">
+    <MudTextField
+        @ref="_textField"
+        Label="@Label"
+        Value="@Value"
+        Text="@Value.Description"
+        Required="@false"
+        HelperText="@HelperText"
+        Validation="@((Func<KeyboardShortcut, string?>)Validate)"
+        Converter="@KeyboardShortcutConverter"
+        AdornmentIcon="@MaterialSymbols.Outlined.KeyboardKeys"
+        Immediate
+        Clearable="@(!KeyboardShortcut.None.Equals(Value))"
+        OnClearButtonClick="OnClear"
+        @onkeydown="OnKeyDown"
+        @onkeyup="OnKeyUp"/>
+</div>
+
+@code
+{
+
+    private KeyboardShortcutBuilder? _shortcutBuilder;
+    private MudTextField<KeyboardShortcut>? _textField;
+
+    [Parameter]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? HelperText { get; set; } = "Focus this input and press the desired keys";
+
+    [Parameter]
+    public KeyboardShortcut Value { get; set; } = KeyboardShortcut.None;
+
+    [Parameter]
+    public EventCallback<KeyboardShortcut> ValueChanged { get; set; }
+
+    [Parameter]
+    public bool Required { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _shortcutBuilder = new KeyboardShortcutBuilder(UpdatedAsync, FinalizedAsync);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_textField is not null)
+        {
+            await _textField.SetText(Value.Description);
+        }
+    }
+
+    private string? Validate(KeyboardShortcut currentValue)
+        => Required && currentValue.IsEmpty
+            ? "This shortcut is required and must be set"
+            : currentValue.IsValid == false
+                ? "The provided shortcut cannot be used"
+                : null;
+
+    private async Task OnKeyDown(KeyboardEventArgs eventArgs)
+    {
+        _shortcutBuilder!.KeyPressed(eventArgs);
+        await UpdateValueAsync(_shortcutBuilder.Value);
+    }
+
+    private async Task OnKeyUp(KeyboardEventArgs eventArgs)
+    {
+        _shortcutBuilder!.RemoveKey(eventArgs.GetKey());
+        await UpdateValueAsync(_shortcutBuilder.Value);
+    }
+
+    private async Task UpdatedAsync(KeyboardShortcut shortcut)
+        => await InvokeAsync(() => UpdateValueAsync(shortcut));
+
+    private async Task FinalizedAsync(KeyboardShortcut shortcut)
+    {
+        await InvokeAsync(() => shortcut.IsValid switch
+            {
+                true => UpdateValueAsync(shortcut),
+                false => UpdateValueAsync(KeyboardShortcut.None),
+            }
+        );
+
+        if (_textField is not null)
+        {
+            // unfocus the input element to disable keyboard handling
+            await InvokeAsync(() => _textField.BlurAsync());
+        }
+
+        Logger.LogDebug("Shortcut finalised: {KeyboardKey}", Value.Description);
+    }
+
+    private async Task OnClear()
+    {
+        _shortcutBuilder?.Clear();
+        await UpdateValueAsync(KeyboardShortcut.None);
+    }
+
+    private async Task UpdateValueAsync(KeyboardShortcut shortcut)
+    {
+        Value = shortcut;
+        await ValueChanged.InvokeAsync(shortcut);
+        if (_textField is not null)
+        {
+            await _textField.SetText(shortcut.Description);
+        }
+    }
+
+    private static readonly MudBlazor.Converter<KeyboardShortcut, string> KeyboardShortcutConverter = new()
+    {
+        GetFunc = _ => KeyboardShortcut.None,
+        SetFunc = shortcut => shortcut?.Description ?? KeyboardShortcut.None.Description,
+    };
+
+}

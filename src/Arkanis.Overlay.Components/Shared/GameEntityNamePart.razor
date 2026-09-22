@@ -1,0 +1,86 @@
+<MudStack Class="@Class"
+          Style="@Style"
+          AlignItems="@AlignItems.Center"
+          Row>
+    @if (PreferCode && CodeModel is not null)
+    {
+    }
+    else if ((Embedded || PreferShort) && Model is GameEntityName.IHasShortName shortVariant)
+    {
+        <MudTooltip Placement="@Placement.Top"
+                    Text="@DisplayFullName">
+            <MudText Typo="@NameTypo" Style="@NameCss">
+                @DisplayShortName
+            </MudText>
+        </MudTooltip>
+    }
+    else
+    {
+        <MudText Typo="@NameTypo" Style="@NameCss">
+            @DisplayFullName
+        </MudText>
+    }
+    @if ((!Embedded || PreferCode) && !PreferShort && CodeModel is not null)
+    {
+        <GameEntityNameCodePart
+            Model="@CodeModel"
+            Typo="@CodeTypo"
+            Embedded="@Embedded"/>
+    }
+</MudStack>
+
+@code
+{
+
+    private string DisplayFullName
+        => CommunityTranslationIndex.Display(Model.FullName);
+
+    private string DisplayShortName
+        => Model is GameEntityName.IHasShortName shortVariant
+            ? CommunityTranslationIndex.Display(shortVariant.ShortName)
+            : DisplayFullName;
+
+    private string NameCss
+        => Embedded
+            ? "font-weight: lighter"
+            : Bold
+                ? "font-weight: bold"
+                : string.Empty;
+
+    private Typo NameTypo
+        => Typo
+           ?? (Embedded
+               ? MudBlazor.Typo.overline
+               : MudBlazor.Typo.h5);
+
+    private Typo CodeTypo
+        => Typo ?? MudBlazor.Typo.body1;
+
+    private GameEntityName.IHasCode? CodeModel
+        => Model as GameEntityName.IHasCode;
+
+    [Parameter]
+    public required GameEntityName.Name Model { get; set; }
+
+    [Parameter]
+    public bool Embedded { get; set; }
+
+    [Parameter]
+    public bool PreferCode { get; set; }
+
+    [Parameter]
+    public bool PreferShort { get; set; }
+
+    [Parameter]
+    public bool Bold { get; set; }
+
+    [Parameter]
+    public Typo? Typo { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? Style { get; set; }
+
+}

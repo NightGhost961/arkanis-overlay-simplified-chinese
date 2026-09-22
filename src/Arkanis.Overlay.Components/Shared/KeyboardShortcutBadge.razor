@@ -1,0 +1,100 @@
+@using Arkanis.Overlay.Common.Models.Keyboard
+@using Arkanis.Overlay.Components.Services.Abstractions
+@implements IDisposable
+@inject IKeyboardProxy GlobalKeyboardProxy
+
+<MudBadge Origin="@Origin"
+          Content="@_shortcut.Description"
+          Class="@Class"
+          BadgeClass="@BadgeClass"
+          Style="@Style"
+          Color="@Color"
+          Visible="@IsActive"
+          Elevation="@Elevation"
+          Overlap="@(DoNotOverlap == false)"
+          UserAttributes="UnmatchedAttributes">
+    @ChildContent
+</MudBadge>
+
+@code
+{
+
+    private KeyboardShortcut _shortcut = KeyboardShortcut.None;
+
+    [Parameter]
+    public KeyboardKey Key { get; set; }
+
+    [Parameter]
+    public IEnumerable<KeyboardKey>? Keys { get; set; }
+
+    [Parameter]
+    public KeyboardShortcut? Shortcut { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public required EventCallback OnKeyPress { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public IKeyboardProxy? KeyboardEventProxy { get; set; }
+
+    [Parameter]
+    public string? Class { get; set; }
+
+    [Parameter]
+    public string? BadgeClass { get; set; }
+
+    [Parameter]
+    public string? Style { get; set; }
+
+    [Parameter]
+    public Color Color { get; set; } = Color.Tertiary;
+
+    [Parameter]
+    public Origin Origin { get; set; } = Origin.TopRight;
+
+    [Parameter]
+    public bool IsActive { get; set; } = true;
+
+    [Parameter]
+    public bool DoNotOverlap { get; set; }
+
+    [Parameter]
+    public int Elevation { get; set; } = 8;
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? UnmatchedAttributes { get; set; }
+
+    private IKeyboardProxy UsedKeyboardProxy
+        => KeyboardEventProxy ?? GlobalKeyboardProxy;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        UsedKeyboardProxy.OnKeyboardShortcut += OnKeyboardShortcut;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        _shortcut = Shortcut
+                    ?? (Keys is not null
+                        ? new KeyboardShortcut(Keys)
+                        : new KeyboardShortcut([Key]));
+    }
+
+    private async void OnKeyboardShortcut(object? sender, KeyboardShortcut keyboardShortcut)
+    {
+        if (IsActive && (keyboardShortcut.Equals((KeyboardShortcut)Key) || _shortcut.Equals(keyboardShortcut)))
+        {
+            await InvokeAsync(() => OnKeyPress.InvokeAsync(keyboardShortcut));
+        }
+    }
+
+    public void Dispose()
+        => UsedKeyboardProxy.OnKeyboardShortcut -= OnKeyboardShortcut;
+
+}

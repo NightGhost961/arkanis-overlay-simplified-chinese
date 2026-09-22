@@ -1,0 +1,53 @@
+namespace Arkanis.Overlay.Host.Server;
+
+using Common.Abstractions;
+using Common.Enums;
+using Common.Services;
+using Infrastructure;
+using Infrastructure.Services;
+using Infrastructure.Services.Abstractions;
+using MudBlazor;
+using MudBlazor.Services;
+using Overlay.Components.Helpers;
+using Overlay.Components.Services;
+using Services;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddAllServerHostServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddHttpClient();
+        services.AddHealthChecks();
+
+        services.AddMemoryCache();
+
+        services
+            .AddRazorComponents()
+            .AddInteractiveServerComponents();
+
+        services.AddMudServices(options =>
+            {
+                options.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopCenter;
+                options.SnackbarConfiguration.PreventDuplicates = false;
+                options.SnackbarConfiguration.ClearAfterNavigation = false;
+            }
+        );
+
+        services.AddEssentialComponentServices();
+
+        services
+            .AddJavaScriptEventInterop()
+            .AddGlobalKeyboardProxyService()
+            .AddGoogleTrackingServices()
+            .AddSharedComponentServices()
+            .AddSingleton<SharedAnalyticsPropertyProvider, ServerAnalyticsPropertyProvider>()
+            .AddServerOverlayControls()
+            .AddInfrastructure(configuration, options => options.HostingMode = HostingMode.Server)
+            .AddInfrastructureConfiguration(configuration)
+            .AddSingleton<GitHubReleasesService>()
+            .AddSingleton<IAppVersionProvider, AssemblyAppVersionProvider>()
+            .AddSingleton<ISystemAutoStartStateProvider, NoSystemAutoStartStateProvider>();
+
+        return services;
+    }
+}

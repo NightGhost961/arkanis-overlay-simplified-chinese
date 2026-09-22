@@ -1,0 +1,56 @@
+name: .NET build
+
+on:
+  # You can use the GitHub API to trigger a webhook event called repository_dispatch
+  # when you want to trigger a workflow for activity that happens outside of GitHub.
+  repository_dispatch:
+    branches: [ main, release/*, ci ]
+  push:
+    branches: [ main, release/*, ci ]
+  pull_request:
+    branches: [ main, release/*, ci ]
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: "Runner pool (override to ubuntu-latest if self-hosted is broken)"
+        type: choice
+        options:
+          - daedalus
+          - arkanis-runners
+          - ubuntu-latest
+        default: daedalus
+
+permissions:
+  contents: write       # for publishing a GitHub release and creating release backpropagation PRs
+  issues: write         # for commenting on released issues
+  pull-requests: write  # for commenting on released pull requests and creating release backpropagation PRs
+  packages: write       # for publishing packages in repository registry
+  id-token: write       # for Azure Code Signing & Credential Federation
+
+jobs:
+  test:
+    name: Tests
+    uses: ./.github/workflows/_test.yaml
+
+  release:
+    name: Release
+    needs: test
+    uses: ./.github/workflows/_release.yaml
+    secrets: inherit
+    with:
+      dry_run: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/ci' }}
+      runner: ${{ inputs.runner || vars.RUNNER_DEFAULT || 'daedalus' }}
+
+  # delpoyment target is selected by the active environment
+  deploy:
+    name: Deployment
+    # deploy whenever there is a new release
+    if: ${{ needs.release.outputs.new_tag != '' }}
+    needs: release
+    uses: ./.github/workflows/_deploy-coolify.yaml
+    secrets: inherit
+    with:
+      application_name: web demo
+      environment_name: ${{ vars.COOLIFY_DEPLOY_ENVIRONMENT }}
+      gh_environment: Production
+      runner: ${{ inputs.runner || vars.RUNNER_DEFAULT || 'daedalus' }}

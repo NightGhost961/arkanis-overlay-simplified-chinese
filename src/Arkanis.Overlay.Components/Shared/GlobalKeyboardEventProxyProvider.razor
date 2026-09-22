@@ -1,0 +1,96 @@
+@using Arkanis.Overlay.Components.Services.Abstractions
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+@inject IJSRuntime JsRuntime
+@inject IDialogService DialogService
+@inject IKeyboardProxy GlobalKeyboardProxy
+@inject ILogger<GlobalKeyboardEventProxyProvider> Logger
+
+<CascadingValue Value="@GlobalKeyboardProxy" IsFixed>
+    @ChildContent
+</CascadingValue>
+
+@code
+{
+
+    [Parameter]
+    [EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    private readonly HashSet<IDialogReference> _openDialogs = [];
+    private IJSObjectReference? _module;
+    private DotNetObjectReference<GlobalKeyboardEventProxyProvider>? _selfReference;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _module ??= await JsRuntime.InvokeAsync<IJSObjectReference>(
+                "import",
+                $"./_content/{SharedComponentsModule.Namespace}/{nameof(Shared)}/{nameof(GlobalKeyboardEventProxyProvider)}.razor.js"
+            );
+
+            _selfReference ??= DotNetObjectReference.Create(this);
+            await _module.InvokeVoidAsync("KeyboardEventHelper.init", _selfReference);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        DialogService.DialogInstanceAddedAsync += OnDialogInstanceAddedAsync;
+    }
+
+    private Task OnDialogInstanceAddedAsync(IDialogReference dialog)
+    {
+        _openDialogs.Add(dialog);
+        GlobalKeyboardProxy.Clear();
+        dialog.Result.ContinueWith(_ => _openDialogs.Remove(dialog));
+        return Task.CompletedTask;
+    }
+
+    [JSInvokable]
+    public void OnKeyDown(KeyboardEventArgs keyboardEvent)
+    {
+        if (_openDialogs.Count > 0)
+        {
+            return;
+        }
+
+#if WITH_KEYBOARD_DEBUGGING
+        var keyboardKey = keyboardEvent.GetKey();
+        Logger.LogDebug("KeyDown: {Key}", keyboardKey);
+#endif
+
+        GlobalKeyboardProxy.RegisterKeyDown(keyboardEvent);
+    }
+
+    [JSInvokable]
+    public void OnKeyUp(KeyboardEventArgs keyboardEvent)
+    {
+        if (_openDialogs.Count > 0)
+        {
+            return;
+        }
+
+        GlobalKeyboardProxy.RegisterKeyUp(keyboardEvent);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        DialogService.DialogInstanceAddedAsync -= OnDialogInstanceAddedAsync;
+        _selfReference?.Dispose();
+
+        try
+        {
+            if (_module != null)
+            {
+                await _module.DisposeAsync();
+            }
+        }
+        catch (JSDisconnectedException)
+        {
+        }
+    }
+}

@@ -1,0 +1,20 @@
+<CascadingValue Value="@KeyboardProxy" IsFixed>
+    <KeyboardInterceptor OnKeyDown="@OnKeyPress">
+        @ChildContent
+    </KeyboardInterceptor>
+</CascadingValue>
+
+@code
+{
+
+    [Parameter]
+    [EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public KeyboardProxy KeyboardProxy { get; set; } = new();
+
+    private void OnKeyPress(KeyboardEventArgs keyboardEvent)
+        => KeyboardProxy.RegisterKeyDown(keyboardEvent);
+
+}

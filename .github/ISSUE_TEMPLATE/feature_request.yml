@@ -1,0 +1,43 @@
+name: ✨ Feature Request
+description: Suggest a new feature or enhancement
+title: "feat: "
+type: Feature
+labels: ["needs triage","Story"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Got a great idea? We'd love to hear it! Fill this out so we can evaluate and discuss.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Feature Name
+      description: A short name or title for your idea
+      placeholder: e.g. Integrated Regolith Map
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Explain the feature or enhancement you have in mind.
+      placeholder: What should it do, and why would it be useful?
+    validations:
+      required: true
+
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Use Case
+      description: Describe how a player would use this in-game. What problem does it solve?
+      placeholder: "This would help players quickly check nearby terminals without alt-tabbing..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes or References
+      description: Link to similar tools, mockups, or relevant community projects if any.
+      placeholder: Links to community threads, screenshots, etc.
