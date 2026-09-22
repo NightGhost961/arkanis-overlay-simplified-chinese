@@ -1,288 +1,67 @@
-<h1 align="center">
-<a href="https://arkanis.cc/overlay" target="_blank">Arkanis Overlay</a>
-for Star Citizen
-</h1>
+# Arkanis Overlay 简体中文非官方便携版
 
-> [!NOTE]
-> This repository contains the non-official Simplified Chinese adaptation. For
-> installation, limitations, attribution, and license information in Chinese,
-> see [README-简体中文补丁.md](README-简体中文补丁.md).
+[![GitHub Release](https://img.shields.io/github/v/release/NightGhost961/arkanis-overlay-simplified-chinese?display_name=tag&label=Release)](../../releases/latest)
+[![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue)](LICENSE.md)
 
-<p align="center">
-<img alt="GitHub dev branch commits since latest release" src="https://img.shields.io/github/commits-since/ArkanisCorporation/ArkanisOverlay/latest/main?logo=github" />
-<img alt="GitHub dev branch check runs" src="https://img.shields.io/github/check-runs/ArkanisCorporation/ArkanisOverlay/main?logo=github" />
-<a href="https://github.com/ArkanisCorporation/ArkanisOverlay/discussions" target="_blank">
- <img alt="GitHub Support" src="https://img.shields.io/badge/github-support?logo=github&label=support" />
-</a>
-<a href="https://arkanis.cc" target="_blank">
- <img alt="Arkanis Website" src="https://img.shields.io/badge/Arkanis.cc-website?logo=googlechrome&logoColor=white&label=website" />
-</a>
-<a href="https://join.arkanis.cc" target="_blank">
- <img alt="Arkanis Discord" src="https://img.shields.io/discord/1294685596991750277?logo=discord&logoColor=white" />
-</a>
-</p>
+这是为《星际公民》玩家制作的 **Arkanis Overlay 非官方简体中文适配版**。项目提供可直接解压运行的 Windows x64 便携包，包含中文界面、中文实体显示与中文搜索支持。
 
-<h3 align="center">
-A Next-Generation Overlay Companion for Star Citizen<br>
-</h3>
+它不是 Arkanis Corporation、Cloud Imperium Games 或 UEX Corporation 的官方产品、官方翻译或获得背书的项目。
 
-<h6 align="center">
-Created by <a href="https://discord.com/users/174617873182883841" target="_blank"><b>FatalMerlin</b></a>,
-co-founder of the <a href="https://org.arkanis.cc" target="_blank">in-game organization</a> <a href="https://arkanis.cc" target="_blank"><b>Arkanis Corporation</b></a>,
-<br/>and <a href="https://discord.com/users/224580858432978944" target="_blank"><b>TheKronnY</b></a>, <a href="https://i.redd.it/dkrdm5jdb8ce1.jpeg" target="_blank">an engineer and IT PhD student</a>.
-</h6>
+## 下载
 
-https://github.com/user-attachments/assets/f932f4c3-913c-4064-9174-566f0e755046
+请到 [Releases 页面](../../releases/latest) 下载最新的 `ArkanisOverlay-zh-CN-portable-r4.zip`。
 
----
+当前发布包的 SHA-256：
 
-<p align="center">
-<a href="https://uexcorp.space" target="_blank">
-<img src="https://uexcorp.space/img/api/uex-api-badge-partnered.png" alt="Proud partners of the United Express (UEX) Corporation" width="150"/>
-</a>
-</p>
+```text
+4CC0145BD9EC96259C00FA4B20DBDCD9BEC68696B200A5E0FC6FF95764DEB628
+```
 
----
+这是自带 .NET 运行时的 `win-x64` 便携版：
 
-## 🚀 What is Arkanis Overlay?
+1. 在系统托盘中完全退出旧版 Arkanis Overlay。
+2. 将 ZIP 解压到一个新建的独立文件夹。
+3. 运行 `ArkanisOverlay.exe`。
 
-**Arkanis Overlay** is a usability-focused, in-game companion overlay for **Star Citizen**.
-It aims to provide players with direct access to essential tools and information without having to leave the game or juggle external websites.
-Inspired by the *[RatScanner](https://ratscanner.com/)* project from the Tarkov community,
-this project is built with a strong focus on reliability, extensibility, and community collaboration.
+请勿将它覆盖到官方安装目录，也不要与官方自动更新目录混用。该适配版不会修改《星际公民》客户端。
 
-The overlay is currently in **active development** and driven by a clear mission:
-> **Minimize friction, maximize immersion.**
+## 主要功能
 
----
+- 常用界面、导航、搜索、贸易、库存、机库和设置控件的简体中文显示。
+- 游戏商品、载具、地点、空间站、前哨站和终端以“中文（English）”形式显示，英文原名仍可用于核对和搜索。
+- 中文同义词搜索：输入中文实体名时，会扩展为对应的 UEX 英文名进行匹配。
+- 修复 Preferences 窗口可能持续停在 `Loading` 的 DOM 观察循环问题。
+- 内置主术语表、社区术语参考和自动生成的 UEX 补充术语表。
 
-## ✨ Key User Features (MVP)
+构建时对本机 UEX 缓存进行的覆盖审计结果为 **1,747 / 1,747** 个实体名称：205 个商品、560 个载具名称/全称、3 个星系、11 个行星、18 个月球、5 座城市、59 个空间站、115 个前哨站和 771 个终端。
 
-- **In-Game Search Tool**
-  — Find general and commonly-needed game information fast — no more alt-tabbing to search websites.
+## 验证范围
 
-- **Integrated Community Data**
-  — Seamlessly connected with the [UEX Corporation][uex] and other community tools _(in the future)_
-  to enrich in-game decision-making.
+- 8 项单元测试已通过。
+- Release ZIP 已核验包含程序、`hostfxr.dll`、中文界面脚本和术语资源。
+- 覆盖统计只对应构建时本机的 UEX 缓存；UEX 后续新增或改名的实体需要重新生成补充词表。
+- 尚未替代所有 Windows 环境的人工 GUI 冒烟测试。若 Preferences 仍显示 `Loading`，请提交复现步骤和已脱敏日志。
 
-- **Automatic Startup**
-  — Launches automatically when you start Windows and Star Citizen, so you’re always ready to go.
+## 从源码构建
 
-- **Installer & Auto-updater**
-  — A self-updating installer that ensures you always have the latest version of the overlay.
+项目要求 .NET SDK `10.0.301`。PowerShell 示例：
 
-## 🤝 Community Focus
+```powershell
+$env:PATH = "$PWD\.dotnet;$env:PATH"
+dotnet test .\tests\Arkanis.Overlay.Host.Desktop.UnitTests\Arkanis.Overlay.Host.Desktop.UnitTests.csproj --configuration Release --no-restore
+dotnet publish .\src\Arkanis.Overlay.Host.Desktop\Arkanis.Overlay.Host.Desktop.csproj --runtime win-x64 --configuration Release --self-contained true --output .\publish-zh-cn
+```
 
-- **Community-Driven Development**
-  — Built in collaboration with players and devs who actively use and shape the tools.
+`tools/generate_uex_supplement.py` 以只读模式读取本机 Overlay 缓存，并从主术语表生成补充术语 JSON。仅在你有权使用相关术语数据时再分发生成结果。
 
-- **Open Source**
-  — The project is open source, allowing anyone to contribute, suggest features, and report bugs.
-  We welcome all contributions, whether big or small.
-  Check out the [contributing guidelines](CONTRIBUTING.md) for more information on how to get involved
-  and let us know you are up for the challenge by joining our [Discord server][arkanis-discord]
-  or opening [a new discussion on GitHub](https://github.com/ArkanisCorporation/ArkanisOverlay/discussions/categories/ideas).
+## 许可、引用与 AI 协助
 
-## 🖥️ Tech Stack
+本适配版派生自 [ArkanisCorporation/ArkanisOverlay](https://github.com/ArkanisCorporation/ArkanisOverlay)，并继承上游的 **PolyForm Noncommercial 1.0.0** 许可证。仓库公开源代码以便审计和复现，但许可证仅允许非商业使用；它不是 MIT、GPL 或其他 OSI 批准的开源许可证。
 
-- Microsoft **.NET 8**
-  — The application is built using the latest .NET technologies, ensuring a modern and efficient (developer) experience.
+完整的上游署名、UEX/社区术语来源、商标声明与 AI 协助披露见 [ATTRIBUTIONS.md](ATTRIBUTIONS.md)。本适配版由维护者主导，使用 **OpenAI GPT-5 Codex** 协助完成代码修改、术语补全脚本、测试和文档草拟。
 
-- **WPF-Hosted Blazor Windows App**
-  — Built in C# using modern UI technologies for smooth performance and simple extensibility.
+## 贡献与问题反馈
 
-- **ASP.NET Core Server**
-  — The backend is built on ASP.NET Core, providing a robust and scalable foundation for future features.
+欢迎提交可核对的术语修正、中文搜索复现步骤和构建问题。请不要提交游戏文件、账户信息、访问令牌或含个人信息的原始日志。
 
----
-
-> [!TIP]
-> You can check out the in-browser demo of the overlay at [overlay.arkanis.cc][overlay-demo]!
-> It features an identical UI and functionality as the in-game version, just without the game integration.
-
-## 🛠️ Getting Started
-
-This section provides a quick overview of how to install and use the Arkanis Overlay application.
-
-### Installation
-
-Follow these steps to install the Arkanis Overlay application on your Windows system:
-
-1. **Download** an installer for the latest (stable) release from:
-    - the [Overlay in-browser demo page][overlay-demo]
-    - or the [Arkanis Overlay homepage][overlay-homepage]
-    - or the [GitHub releases page](https://github.com/ArkanisCorporation/ArkanisOverlay/releases)
-2. **Run the installer** to automatically install the application with a self-updater.
-   <br>Windows may prompt you with a UAC (User Account Control) dialog to confirm the installation.
-   This is a standard security feature of Windows to ensure that you trust the application you are installing.
-   See the screenshots below for reference.
-   After confirming, the application will be installed to `%LocalAppData%/ArkanisOverlay`.
-
-   |             Installer - Windows UAC Step 1              |             Installer - Windows UAC Step 2              |
-   |:-------------------------------------------------------:|:-------------------------------------------------------:|
-   | ![UAC, Step 1](docs/images/Windows_UAC-DialogOnly1.png) | ![UAC, Step 2](docs/images/Windows_UAC-DialogOnly2.png) |
-
-3. **Launch the application** from the Start Menu or by double-clicking the desktop shortcut.
-   Both are named `Arkanis Overlay`.
-
-### Application Behavior
-
-Once launched, the application runs in the **Windows system tray**.
-It does not display a window by default.
-From the tray icon, you can open the **preferences dialog** or exit the application entirely.
-
-### Overlay Activation
-
-> [!IMPORTANT]
-> The in-game overlay can be opened using the default keyboard shortcut: `Left Alt + Left Shift + S`.
-
-The shortcut can be customized through the **preferences dialog**, allowing you to set a key combination that best suits your needs.
-
-### Preferences and Configuration
-
-The preferences dialog is accessible either from the **system tray icon** or directly within the **overlay interface** itself.
-
-Within the preferences dialog, you currently can:
-
-- Enable or disable automatic launching of the application when Windows starts.
-- Choose whether the overlay application should automatically exit when Star Citizen is closed.
-- Customize the keyboard shortcut used to activate the overlay.
-- Adjust other application-specific settings related to appearance and behavior.
-
----
-
-## 🔮 Roadmap & Planned Features
-
-We're dreaming big — here's what's ahead:
-
-### 🧩 Core Enhancements
-
-- [x] Seamless self-updater and installer
-- [x] Keyboard shortcuts for quick access and navigation within the overlay
-- [ ] Improved reliability and usability
-- [ ] Configurable display: layouts, themes, behavior
-- [ ] Localization
-
-### 🔎 Smarter Search
-
-- [x] Full-text search across entity database (commodities, locations, items, etc.)
-- [ ] Improvements to fuzzy search and result ranking]
-
-### 🔗 Integrations & Tools
-
-- [x] Game entity search sourced from [UEX Corporation][uex]
-- [ ] [UEX CLI](https://github.com/UEXCorp/UEX-CLI) and MFD screen integration
-- [ ] Embedded tools and services _(permissions required)_
-    - [ ] [SPViewer](https://www.spviewer.eu/)
-    - [ ] [Erkul](https://www.erkul.games/)
-    - [ ] [Regolith Co.](https://regolith.rocks/)
-    - and more...
-- [ ] API-driven data enrichment from the community (Wiki, JSON exports, etc.)
-- [ ] Additional social features (Discord, orgs, etc.)
-
-### 🔍 OCR-Driven Intelligence
-
-- [ ] UEX data extraction (prices for commodities, items, fuel, ores, etc.)
-- [ ] [Regolith Co.](https://regolith.rocks/) integration
-- [ ] Player location-based map awareness and contextual recommendations
-
-### 🧭 Long-Term Vision
-
-- Gameplay enhancement tools:
-    - Task & progress tracking
-    - Party, session, squad, and advanced org management utilities
-    - Inventory management
-    - Note-taking & planning aids
-- **Plugin support** for third-party extensions _(exploration stage)_
-
-> [!NOTE]
-> Do you have other ideas for features or tools you'd like to see integrated into the overlay?
-> We're all ears!
-> Open up [a new discussion on GitHub](https://github.com/ArkanisCorporation/ArkanisOverlay/discussions/categories/ideas), and let's make it happen.
-> Together.
-
----
-
-## 💡 Philosophy
-
-Star Citizen is vast — and at times, frustratingly so.
-Especially for citizens newly embarking on their journey in Stanton and beyond.
-**Arkanis Overlay** doesn't aim to change the game, but to make the *experience better*.
-For everyone.
-It’s your always-on wingman — helpful, seamless, and never in the way.
-
-Key principles:
-
-- **Reliable UX**: The overlay *must* be stable. The game has enough bugs already.
-- **Incremental growth**: Release early, improve often.
-- **No exploits**: This project will *never* include cheats, automation, or game-breaking features.
-
----
-
-## 🧑‍💻 Development Status
-
-> Project Lead: [FatalMerlin](https://github.com/FatalMerlin)<br>
-> Language: C#<br>
-> Frameworks: **WPF** and **WebView2** for the Windows client, **Blazor**
-
-Currently developed in bursts due to time constraints (because, you know… real life).
-We are now a small dev team — progress is slow but deliberate.
-We are looking for fellow motivated and able citizens to join us on this journey.
-
-> [!NOTE]
-> Have you found a bug?
-> Would you like contribute to the project?
-> We are always looking for help with feature development, application testing, and better UI/UX design.
-> Open [a new discussion](https://github.com/ArkanisCorporation/ArkanisOverlay/discussions/categories/ideas),
-> [an issue](https://github.com/ArkanisCorporation/ArkanisOverlay/issues/new/choose)
-> or contact [@FatalMerlin](https://discord.com/users/174617873182883841) directly.
-> We'd love your input!
-
----
-
-## 🙌 Community & Support
-
-Big shout-out to:
-
-- **UEX Dev Team** for their continued support, testing, and our future collaboration.
-- Everyone in the **Arkanis Corporation** and broader Star Citizen community who has provided feedback and ideas.
-
----
-
-## 🧭 Why "Arkanis"?
-
-The name pays tribute to the **Arkanis Sector**, a frontier region of bold explorers
-— just like the developers and the users of this tool.
-We aim to embody the same spirit: discovery, utility, and frontier innovation.
-
----
-
-## 📜 License
-
-This project is licensed under the PolyForm Noncommercial License 1.0.0.
-
-In simple terms:
-
-- <span style="color: green">You can</span> use, modify, and share this software freely for noncommercial purposes.
-- <span style="color: red">You cannot</span> use this software <u>for commercial purposes</u>.
-  That includes selling it, using it in a business, or any activity intended for commercial advantage or monetary compensation.
-
-See the [LICENSE.md](LICENSE.md) file for the full text of the license.
-
----
-
-## 🌌 Final Words
-
-This is only the beginning.
-**Arkanis Overlay** is designed to grow with the game and the community.
-Let’s make Star Citizen a little smoother — together.
-
-> *“A ship is only as good as its crew.”*
-> — Unknown
-
----
-
-[overlay-demo]: https://overlay.arkanis.cc
-[overlay-homepage]: https://arkanis.cc/overlay
-[arkanis-discord]: https://join.arkanis.cc
-[uex]: https://uexcorp.space
+`Arkanis Overlay`、`Star Citizen`、`Cloud Imperium Games`、`UEX` 及相关名称可能是各自权利人的商标。本仓库与上述权利人没有隶属或背书关系。
