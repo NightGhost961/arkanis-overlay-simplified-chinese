@@ -7,7 +7,7 @@
 
 ## 下载与运行
 
-请在仓库的 [Releases](../../releases) 页面下载 `ArkanisOverlay-简体中文-便携版-修复4-更新词表.zip`。
+请在仓库的 [Releases](../../releases) 页面下载最新的 `zh-CN` 便携 ZIP。
 
 该 ZIP 的 SHA-256 为 `4CC0145BD9EC96259C00FA4B20DBDCD9BEC68696B200A5E0FC6FF95764DEB628`。GitHub 自动生成的 `Source code (zip/tar.gz)` 仅是源码快照，并不是可直接运行的便携包。
 
