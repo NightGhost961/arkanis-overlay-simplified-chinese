@@ -3,13 +3,13 @@
 [![GitHub Release](https://img.shields.io/github/v/release/NightGhost961/arkanis-overlay-simplified-chinese?display_name=tag&label=Release)](../../releases/latest)
 [![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue)](LICENSE.md)
 
-这是为《星际公民》玩家制作的 **Arkanis Overlay 非官方简体中文适配版**。提供可直接解压运行的 Windows x64 便携包，包含中文界面、中文实体显示、中文搜索和可复现的源码构建说明。
+这是为《星际公民》玩家制作的 **Arkanis Overlay 非官方简体中文适配版**。项目提供可直接解压运行的 Windows x64 便携包，包含中文界面、中文实体显示与中文搜索支持。
 
 它不是 Arkanis Corporation、Cloud Imperium Games 或 UEX Corporation 的官方产品、官方翻译或获得背书的项目。
 
-## 下载与运行
+## 下载
 
-请到 [Releases 页面](../../releases/latest) 下载当前发布包 `ArkanisOverlay-zh-CN-portable-r4.zip`。
+请到 [Releases 页面](../../releases/latest) 下载最新的 `ArkanisOverlay-zh-CN-portable-r4.zip`。
 
 当前发布包的 SHA-256：
 
@@ -20,27 +20,27 @@
 这是自带 .NET 运行时的 `win-x64` 便携版：
 
 1. 下载 ZIP。
-2. 解压到一个新建的独立文件夹。
+2. 将 ZIP 解压到一个新建的独立文件夹。
 3. 运行 `ArkanisOverlay.exe`。
 
-请勿将它覆盖到官方安装目录或与官方自动更新目录混用。该适配版不会修改《星际公民》客户端。
+请勿将它覆盖到官方安装目录，也不要与官方自动更新目录混用。该适配版不会修改《星际公民》客户端。
 
-## 本版包含
+## 主要功能
 
 - 常用界面、导航、搜索、贸易、库存、机库和设置控件的简体中文显示。
 - 游戏商品、载具、地点、空间站、前哨站和终端以“中文（English）”形式显示，英文原名仍可用于核对和搜索。
 - 中文同义词搜索：输入中文实体名时，会扩展为对应的 UEX 英文名进行匹配。
 - 修复 Preferences 窗口可能持续停在 `Loading` 的 DOM 观察循环问题。
-- 内置 UEX 主术语表、社区术语参考和自动生成的补充术语表。
+- 内置主术语表、社区术语参考和自动生成的 UEX 补充术语表。
 
-构建时对本机 UEX 缓存的审计为 **1,747 / 1,747** 个实体名称已具有中文主译名：205 个商品、560 个载具名称/全称、211 个地点和 771 个终端。
+构建时对本机 UEX 缓存进行的覆盖审计结果为 **1,747 / 1,747** 个实体名称：205 个商品、560 个载具名称/全称、3 个星系、11 个行星、18 个月球、5 座城市、59 个空间站、115 个前哨站和 771 个终端。
 
 ## 验证范围
 
 - 8 项单元测试已通过。
 - Release ZIP 已核验包含程序、`hostfxr.dll`、中文界面脚本和术语资源。
-- 覆盖统计对应构建时本机的 UEX 缓存；UEX 后续新增或改名的实体需要重新生成补充词表。
-- 该验证不替代所有 Windows 环境的人工 GUI 冒烟测试。若 Preferences 仍显示 `Loading`，请提交复现步骤和已脱敏日志。
+- 覆盖统计只对应构建时本机的 UEX 缓存；UEX 后续新增或改名的实体需要重新生成补充词表。
+- 尚未替代所有 Windows 环境的人工 GUI 冒烟测试。若 Preferences 仍显示 `Loading`，请提交复现步骤和已脱敏日志。
 
 ## 从源码构建
 
